@@ -1,9 +1,8 @@
-nflreadpy>=0.1.4
-pandas>=2.2
-numpy>=1.26
-scikit-learn>=1.5
-xgboost>=3.1
-joblib>=1.4
-matplotlib>=3.9
-pyarrow>=17.0
-streamlit>=1.42
+streamlit==1.59.1
+nflreadpy==0.1.5
+xgboost==3.3.0
+pandas==2.2.2
+scikit-learn==1.6.1
+matplotlib
+joblib==1.5.3
+numpy==2.0.2
