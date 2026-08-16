@@ -246,7 +246,7 @@ with left:
         st.info("Adjust the game situation, then click **Predict Play**.")
 
 with right:
-        st.subheader("Model")
+    st.subheader("Model")
 
     # Production model information
     st.markdown("### Production model")
