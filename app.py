@@ -246,19 +246,53 @@ with left:
         st.info("Adjust the game situation, then click **Predict Play**.")
 
 with right:
-    st.subheader("Model")
+        st.subheader("Model")
+
+    # Production model information
+    st.markdown("### Production model")
+
+    p1, p2 = st.columns(2)
+    p1.metric("Trained through", "2025")
+    p2.metric("Training plays", "175,790")
+
+    st.caption(
+        "Production model trained on 2021, 2022, 2023, 2024, and 2025."
+    )
+
+    st.divider()
+
+    # Independent validation results
+    st.markdown("### Independent validation")
+
     metrics = load_metrics()
+
     if metrics:
-        m1, m2 = st.columns(2)
-        m1.metric("Test accuracy", f"{metrics.get('accuracy', 0):.1%}")
-        m2.metric("ROC AUC", f"{metrics.get('roc_auc', 0):.3f}")
+        v1, v2 = st.columns(2)
+
+        v1.metric(
+            "2025 hold-out accuracy",
+            f"{metrics.get('accuracy', 0):.1%}"
+        )
+
+        v2.metric(
+            "ROC AUC",
+            f"{metrics.get('roc_auc', 0):.3f}"
+        )
+
+        st.metric(
+            "Log loss",
+            f"{metrics.get('log_loss', 0):.3f}"
+        )
+
         st.caption(
-            f"Trained on {', '.join(map(str, metrics.get('train_seasons', [])))} · "
-            f"tested on {metrics.get('test_season', 'N/A')} · "
-            f"{metrics.get('n_train', 0):,} training plays"
+            f"Validation model trained on "
+            f"{', '.join(map(str, metrics.get('train_seasons', [])))} "
+            f"using {metrics.get('n_train', 0):,} plays, then tested on "
+            f"{metrics.get('n_test', 0):,} unseen plays from "
+            f"{metrics.get('test_season', 'N/A')}."
         )
     else:
-        st.caption("Saved model loaded. Evaluation metrics are not available in this deployment.")
+        st.caption("Independent validation metrics are unavailable.")
 
     st.write("**What the model considers**")
     st.write(
